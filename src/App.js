@@ -13,7 +13,7 @@ class App extends Component {
                 </div>
             </BrowserRouter>
       );
-  }
+    }
 }
 
 export default App;
