@@ -9,7 +9,7 @@ function RenderPartner(props) {
             return(
                 <>
                     <Media object src={image} alt={name} width="150" />
-                    <Media body className="ml-5 md-4">
+                    <Media body className="ml-5 mb-4">
                         <Media heading>
                             {name}
                         </Media>
