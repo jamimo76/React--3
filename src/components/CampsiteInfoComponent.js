@@ -13,14 +13,14 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Component } from 'react';
 
-const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
+const maxLength = (len) => (val) => !val || val.length <= len;
 
 function RenderCampsite({ campsite }) {
   return (
     <div className="col-md-5 m-1">
       <Card>
-        <CardImg top src={campsite.image} alt={campsite.name}></CardImg>
+        <CardImg top src={campsite.image} alt={campsite.name} />
         <CardBody>
           <CardText>{campsite.description}</CardText>
         </CardBody>
@@ -29,7 +29,7 @@ function RenderCampsite({ campsite }) {
   );
 }
 
-function RenderComments({ comments, postComment }) {
+function RenderComments({ comments }) {
   // console.log(comments);
 
   if (comments) {
@@ -37,7 +37,7 @@ function RenderComments({ comments, postComment }) {
       <div className="col-md-5 m-1">
         <h4>Comments</h4>
 
-        {comments.map((comment, postComment) => {
+        {comments.map((comment) => {
           return (
             <div key={comment.id}>
               <p>
@@ -53,13 +53,10 @@ function RenderComments({ comments, postComment }) {
             </div>
           );
         })}
-        <div className="container">
-          <CommentForm postComment={postComment} />
-        </div>
+        <CommentForm />
       </div>
     );
   }
-
   return <div />;
 }
 
@@ -100,15 +97,13 @@ class CommentForm extends Component {
         touched: {
             author: false
         }
-       
-    };
+      };
+     
 
-    this.toggleModal=this.toggleModal.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
-    
-  }
-
-
+      this.toggleModal=this.toggleModal.bind(this);
+      this.handleSubmit=this.handleSubmit.bind(this);
+    }  
+ 
     handleSubmit(values) {
         console.log("Current state is: " +JSON.stringify(values));
         alert("Current state is: " +JSON.stringify(values));
@@ -127,30 +122,28 @@ class CommentForm extends Component {
             Submit Comment
           </Button>
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+              <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                 <ModalBody>
-                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                  <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                         <div className="form-group">
                             <Label htmlFor="rating">Rating</Label>
-                                <Control.Select
+                                <Control.select
                                     className="form-control"
                                     model=".rating"
                                     id="rating"
                                     name="rating"
                                     defaultValue="1"
                                 >
-                                                
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </Control.Select>                        
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </Control.select>                        
                         </div>
                         <div className="form-group">
                             <Label htmlFor="author">Your Name</Label>
-                            
-                                <Control.Text
+                              <Control.text
                                     className="form-control"
                                     model=".author"
                                     id="author"
@@ -177,24 +170,23 @@ class CommentForm extends Component {
                             <Label htmlFor="text" >
                                 Text
                             </Label>
-                            
-                                <Control.textarea
+                              <Control.textarea
                                     model=".text"
                                     className="form-control"
                                     id="text"
                                     name="text"
                                     rows={6}
 
-                                />
+                              />
                         </div>
-                        <Button type="submit" value="submit" color="primary">Submit</Button>
-                    </LocalForm>
+                        <Button type="submit" color="primary">Submit</Button>
+                  </LocalForm>
                 </ModalBody>
             </Modal>
                    
-      </>
-    );
-  }
+        </>
+      );
+    }
 }
 
 export default CampsiteInfo;
