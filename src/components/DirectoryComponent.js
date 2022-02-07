@@ -44,7 +44,7 @@ function Directory (props){
                 {directory}
             </div>
         </div>
-        );
+    );
 }
 
 
