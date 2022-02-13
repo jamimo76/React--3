@@ -185,3 +185,40 @@ export const addPartners = partners => ({
     type: ActionTypes.ADD_PARTNERS,
     payload: partners
 });
+
+export const postFeedback = ({firstName, lastName, phoneNum, email, agree, contactType, feedback}) => 
+    dispatch => {
+        const newFeedback = {
+            firstName,
+            lastName,
+            phoneNum,
+            email,
+            agree,
+            contactType,
+            feedback
+        };
+        return fetch(baseUrl + 'comments', {
+            method: "POST",
+            body: JSON.stringify(newFeedback),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Feedback: Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => { throw error; }
+        )
+        .then(response =>response.json())
+        .then(response =>alert(`Thank you for your feedback ${JSON.stringify(response)}`))
+        .catch(error => {
+            console.log('post Feedback', error.message);
+            alert('Your feedback could not be posted\nError: ' + error.message);
+        });
+};

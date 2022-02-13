@@ -15,6 +15,7 @@ import {
   fetchComments,
   fetchPromotions,
   fetchPartners,
+  postFeedback,
 } from "../redux/ActionCreators";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
@@ -35,6 +36,7 @@ const mapDispatchToProps = {
   fetchComments: () => fetchComments(),
   fetchPromotions: () => fetchPromotions(),
   fetchPartners: () => fetchPartners(),
+  postFeedback: (values) => postFeedback(values),
 };
 
 class Main extends Component {
@@ -114,7 +116,7 @@ class Main extends Component {
                 exact
                 path="/contactus"
                 render={() => (
-                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                  <Contact postFeedback={this.props.postFeedback} />
                 )}
               />
               <Route
