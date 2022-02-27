@@ -5,24 +5,28 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Media,
+  Media
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
-import { FadeTransform, Fade, Stagger } from "react-animation-components";
+import { Loading } from "./LoadingComponent";
+import { Fade, Stagger } from "react-animation-components";
 
-function RenderPartner(props) {
-  const { name, image, description } = props.partner;
-  if (props.partner) {
+function RenderPartner({ partner }) {
+  if (partner) {
     return (
-      <>
-        <Media object src={baseUrl + image} alt={name} width="150" />
+      <React.Fragment>
+        <Media
+          object
+          src={baseUrl + partner.image}
+          alt={partner.name}
+          width="150"
+        />
         <Media body className="ml-5 mb-4">
-          <Media heading>{name}</Media>
-          <p>{description}</p>
+          <Media heading>{partner.name}</Media>
+          {partner.description}
         </Media>
-      </>
+      </React.Fragment>
     );
   }
   return <div />;
@@ -38,6 +42,7 @@ function PartnerList(props) {
       </Fade>
     );
   });
+
   if (props.partners.isLoading) {
     return <Loading />;
   }
@@ -49,7 +54,7 @@ function PartnerList(props) {
     );
   }
   return (
-    <div>
+    <div className="col mt-4">
       <Media list>
         <Stagger in>{partners}</Stagger>
       </Media>
@@ -127,11 +132,10 @@ function About(props) {
         <div className="col-12">
           <h3>Community Partners</h3>
         </div>
-        <div className="col mt-4">
-          <PartnerList partners={props.partners} />
-        </div>
+        <PartnerList partners={props.partners} />
       </div>
     </div>
   );
 }
+
 export default About;
